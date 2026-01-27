@@ -23,33 +23,47 @@
             <!-- Progress Steps -->
             <div class="mb-8 animate-fade-in">
                 <div class="flex items-center justify-between">
-                    <div *ngFor="let step of steps; let i = index" class="flex-1 flex items-center">
-                        <div class="flex flex-col items-center flex-1">
-                            <div class="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300"
+                    @for (step of steps; track step; let i = $index) {
+                        <div class="flex-1 flex items-center">
+                            <div class="flex flex-col items-center flex-1">
+                            <div
+                                class="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300"
                                 [ngClass]="{
-                     'bg-primary-600 text-white': currentStep > i,
-                     'bg-primary-100 text-primary-600 ring-4 ring-primary-50': currentStep === i,
-                     'bg-gray-200 text-gray-500': currentStep < i
-                   }">
-                                <svg *ngIf="currentStep > i" class="h-6 w-6" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
+                                'bg-primary-600 text-white': currentStep > i,
+                                'bg-primary-100 text-primary-600 ring-4 ring-primary-50': currentStep === i,
+                                'bg-gray-200 text-gray-500': currentStep < i
+                                }"
+                            >
+                                @if (currentStep > i) {
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
+                                    d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span *ngIf="currentStep <= i" class="font-bold">{{ i + 1 }}</span>
+                                } @else {
+                                <span class="font-bold">{{ i + 1 }}</span>
+                                }
                             </div>
-                            <p class="mt-2 text-sm font-medium" [ngClass]="{
-                   'text-primary-600': currentStep >= i,
-                   'text-gray-500': currentStep < i
-                 }">
+
+                            <p class="mt-2 text-sm font-medium"
+                                [ngClass]="{
+                                'text-primary-600': currentStep >= i,
+                                'text-gray-500': currentStep < i
+                                }">
                                 {{ step }}
                             </p>
+                            </div>
+
+                            @if (i < steps.length - 1) {
+                            <div class="flex-1 h-1 mx-4 transition-all duration-300"
+                                [ngClass]="{
+                                    'bg-primary-600': currentStep > i,
+                                    'bg-gray-200': currentStep <= i
+                                }">
+                            </div>
+                            }
                         </div>
-                        <div *ngIf="i < steps.length - 1" class="flex-1 h-1 mx-4 transition-all duration-300" [ngClass]="{
-                   'bg-primary-600': currentStep > i,
-                   'bg-gray-200': currentStep <= i
-                 }">
-                        </div>
+                    }
+                    </div>
                     </div>
                 </div>
             </div>
@@ -58,230 +72,248 @@
             <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 animate-scale-in">
                 <form (ngSubmit)="submitClaim()">
                     <!-- Step 1: Policy Selection -->
-                    <div *ngIf="currentStep === 0" class="space-y-6 animate-fade-in">
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900 mb-6">Select Policy</h2>
+                     @if(currentStep==0){
+                        <div class="space-y-6 animate-fade-in">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900 mb-6">Select Policy</h2>
 
-                            <div class="grid gap-4">
-                                <div *ngFor="let policy of policies" (click)="selectPolicy(policy)"
-                                    class="p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-medium"
-                                    [ngClass]="{
-                       'border-primary-600 bg-primary-50': claimData.policyId === policy.id,
-                       'border-gray-200 hover:border-primary-300': claimData.policyId !== policy.id
-                     }">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex-1">
-                                            <div class="flex items-center gap-3 mb-2">
-                                                <div
-                                                    class="h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center">
-                                                    <svg class="h-5 w-5 text-primary-600" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                                <div class="grid gap-4">
+                                    @for(policy of policies;track policy.id){
+                                        <div (click)="selectPolicy(policy)"
+                                            class="p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-medium"
+                                            [ngClass]="{
+                                            'border-primary-600 bg-primary-50': claimData.policyId === policy.id,
+                                            'border-gray-200 hover:border-primary-300': claimData.policyId !== policy.id
+                                            }">
+                                            <div class="flex items-start justify-between">
+                                                <div class="flex-1">
+                                                    <div class="flex items-center gap-3 mb-2">
+                                                        <div
+                                                            class="h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center">
+                                                            <svg class="h-5 w-5 text-primary-600" fill="none"
+                                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                                                                </path>
+                                                            </svg>
+                                                        </div>
+                                                        <div>
+                                                            <h3 class="font-bold text-gray-900">{{ policy.type }} Insurance</h3>
+                                                            <p class="text-sm text-gray-600">{{ policy.policyNumber }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid grid-cols-2 gap-4 mt-4">
+                                                        <div>
+                                                            <p class="text-xs text-gray-600">Coverage</p>
+                                                            <p class="font-semibold text-gray-900">₹{{ policy.coverageAmount |
+                                                                number }}</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-xs text-gray-600">Status</p>
+                                                            <span class="badge badge-success">{{ policy.status }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @if(claimData.policyId === policy.id){
+                                                    <div class="h-6 w-6 rounded-full bg-primary-600 flex items-center justify-center">
+                                                        <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M5 13l4 4L19 7"></path>
+                                                        </svg>
+                                                    </div>
+                                                }    
+                                            </div>
+                                        </div>
+                                    }    
+                                </div>
+                            </div>
+                        </div>
+                    }    
+                    <!-- Step 2: Claim Details -->
+                    @if(currentStep==1){
+                        <div class="space-y-6 animate-fade-in">
+                            <h2 class="text-xl font-bold text-gray-900 mb-6">Claim Details</h2>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Claim Type</label>
+                                <select [(ngModel)]="claimData.type" name="type" required class="input-modern">
+                                    <option value="">Select claim type</option>
+                                    <option value="Medical">Medical Expense</option>
+                                    <option value="Accident">Accident</option>
+                                    <option value="Property Damage">Property Damage</option>
+                                    <option value="Theft">Theft</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Incident Date</label>
+                                <input type="date" [(ngModel)]="claimData.incidentDate" name="incidentDate" required
+                                    class="input-modern">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Claim Amount</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">₹</span>
+                                    <input type="number" [(ngModel)]="claimData.amount" name="amount" required
+                                        class="input-modern pl-8" placeholder="0.00">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                                <textarea [(ngModel)]="claimData.description" name="description" required rows="4"
+                                    class="input-modern"
+                                    placeholder="Please provide details about the incident..."></textarea>
+                            </div>
+                        </div>
+                    }    
+
+                    <!-- Step 3: Documents -->
+                    @if(currentStep==1){
+                        <div class="space-y-6 animate-fade-in">
+                            <h2 class="text-xl font-bold text-gray-900 mb-6">Upload Documents</h2>
+
+                            <div (click)="fileInput.click()"
+                                class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-primary-400 transition-colors cursor-pointer">
+                                <svg class="h-12 w-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                    </path>
+                                </svg>
+                                <p class="text-gray-700 font-semibold mb-1">Click to upload or drag and drop</p>
+                                <p class="text-sm text-gray-500">PDF, PNG, JPG up to 10MB</p>
+                                <input type="file" (change)="onFileSelected($event)" class="hidden" multiple
+                                    accept=".pdf,.png,.jpg,.jpeg" #fileInput>
+                            </div>
+                            @if(uploadedFiles.length > 0){
+                                <div class="space-y-3">
+                                    <p class="text-sm font-semibold text-gray-700">Uploaded Files</p>
+                                    for(let file of uploadedFiles;track){
+                                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                            <div class="flex items-center gap-3">
+                                                <div class="h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center">
+                                                    <svg class="h-5 w-5 text-primary-600" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                                         </path>
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h3 class="font-bold text-gray-900">{{ policy.type }} Insurance</h3>
-                                                    <p class="text-sm text-gray-600">{{ policy.policyNumber }}</p>
+                                                    <p class="font-semibold text-gray-900">{{ file.name }}</p>
+                                                    <p class="text-sm text-gray-600">{{ file.size }}</p>
                                                 </div>
                                             </div>
-                                            <div class="grid grid-cols-2 gap-4 mt-4">
-                                                <div>
-                                                    <p class="text-xs text-gray-600">Coverage</p>
-                                                    <p class="font-semibold text-gray-900">₹{{ policy.coverageAmount |
-                                                        number }}</p>
-                                                </div>
-                                                <div>
-                                                    <p class="text-xs text-gray-600">Status</p>
-                                                    <span class="badge badge-success">{{ policy.status }}</span>
-                                                </div>
-                                            </div>
+                                            <button type="button" class="text-red-600 hover:text-red-700">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                    </path>
+                                                </svg>
+                                            </button>
                                         </div>
-                                        <div *ngIf="claimData.policyId === policy.id"
-                                            class="h-6 w-6 rounded-full bg-primary-600 flex items-center justify-center">
-                                            <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 13l4 4L19 7"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
+                                    }    
+                                }    
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                        </div>        
+                    } 
+                    <!-- Step 4: Review -->
+                    @if(currentStep === 3){
+                        <div class="space-y-6 animate-fade-in">
+                            <h2 class="text-xl font-bold text-gray-900 mb-6">Review & Submit</h2>
 
-                    <!-- Step 2: Claim Details -->
-                    <div *ngIf="currentStep === 1" class="space-y-6 animate-fade-in">
-                        <h2 class="text-xl font-bold text-gray-900 mb-6">Claim Details</h2>
+                            <div class="bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-6 space-y-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Policy</p>
+                                        <p class="font-bold text-gray-900">{{ getSelectedPolicy()?.type }} Insurance</p>
+                                        <p class="text-sm text-gray-600">{{ getSelectedPolicy()?.policyNumber }}</p>
+                                    </div>
+                                    <span class="badge badge-info">{{ claimData.type }}</span>
+                                </div>
 
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Claim Type</label>
-                            <select [(ngModel)]="claimData.type" name="type" required class="input-modern">
-                                <option value="">Select claim type</option>
-                                <option value="Medical">Medical Expense</option>
-                                <option value="Accident">Accident</option>
-                                <option value="Property Damage">Property Damage</option>
-                                <option value="Theft">Theft</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Incident Date</label>
-                            <input type="date" [(ngModel)]="claimData.incidentDate" name="incidentDate" required
-                                class="input-modern">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Claim Amount</label>
-                            <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">₹</span>
-                                <input type="number" [(ngModel)]="claimData.amount" name="amount" required
-                                    class="input-modern pl-8" placeholder="0.00">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                            <textarea [(ngModel)]="claimData.description" name="description" required rows="4"
-                                class="input-modern"
-                                placeholder="Please provide details about the incident..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Documents -->
-                    <div *ngIf="currentStep === 2" class="space-y-6 animate-fade-in">
-                        <h2 class="text-xl font-bold text-gray-900 mb-6">Upload Documents</h2>
-
-                        <div (click)="fileInput.click()"
-                            class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-primary-400 transition-colors cursor-pointer">
-                            <svg class="h-12 w-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                </path>
-                            </svg>
-                            <p class="text-gray-700 font-semibold mb-1">Click to upload or drag and drop</p>
-                            <p class="text-sm text-gray-500">PDF, PNG, JPG up to 10MB</p>
-                            <input type="file" (change)="onFileSelected($event)" class="hidden" multiple
-                                accept=".pdf,.png,.jpg,.jpeg" #fileInput>
-                        </div>
-
-                        <div *ngIf="uploadedFiles.length > 0" class="space-y-3">
-                            <p class="text-sm font-semibold text-gray-700">Uploaded Files</p>
-                            <div *ngFor="let file of uploadedFiles"
-                                class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                                <div class="flex items-center gap-3">
-                                    <div class="h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center">
-                                        <svg class="h-5 w-5 text-primary-600" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                            </path>
-                                        </svg>
+                                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-primary-100">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Incident Date</p>
+                                        <p class="font-semibold text-gray-900">{{ claimData.incidentDate | date:'MMM d, y'
+                                            }}</p>
                                     </div>
                                     <div>
-                                        <p class="font-semibold text-gray-900">{{ file.name }}</p>
-                                        <p class="text-sm text-gray-600">{{ file.size }}</p>
+                                        <p class="text-sm text-gray-600">Claim Amount</p>
+                                        <p class="font-semibold text-gray-900">₹{{ claimData.amount | number }}</p>
                                     </div>
                                 </div>
-                                <button type="button" class="text-red-600 hover:text-red-700">
-                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Step 4: Review -->
-                    <div *ngIf="currentStep === 3" class="space-y-6 animate-fade-in">
-                        <h2 class="text-xl font-bold text-gray-900 mb-6">Review & Submit</h2>
-
-                        <div class="bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-6 space-y-4">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="text-sm text-gray-600">Policy</p>
-                                    <p class="font-bold text-gray-900">{{ getSelectedPolicy()?.type }} Insurance</p>
-                                    <p class="text-sm text-gray-600">{{ getSelectedPolicy()?.policyNumber }}</p>
+                                <div class="pt-4 border-t border-primary-100">
+                                    <p class="text-sm text-gray-600 mb-2">Description</p>
+                                    <p class="text-gray-900">{{ claimData.description }}</p>
                                 </div>
-                                <span class="badge badge-info">{{ claimData.type }}</span>
-                            </div>
 
-                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-primary-100">
-                                <div>
-                                    <p class="text-sm text-gray-600">Incident Date</p>
-                                    <p class="font-semibold text-gray-900">{{ claimData.incidentDate | date:'MMM d, y'
-                                        }}</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-600">Claim Amount</p>
-                                    <p class="font-semibold text-gray-900">₹{{ claimData.amount | number }}</p>
+                                <div class="pt-4 border-t border-primary-100">
+                                    <p class="text-sm text-gray-600 mb-2">Documents</p>
+                                    <p class="text-gray-900">{{ uploadedFiles.length }} file(s) uploaded</p>
                                 </div>
                             </div>
 
-                            <div class="pt-4 border-t border-primary-100">
-                                <p class="text-sm text-gray-600 mb-2">Description</p>
-                                <p class="text-gray-900">{{ claimData.description }}</p>
-                            </div>
-
-                            <div class="pt-4 border-t border-primary-100">
-                                <p class="text-sm text-gray-600 mb-2">Documents</p>
-                                <p class="text-gray-900">{{ uploadedFiles.length }} file(s) uploaded</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex gap-3">
-                            <svg class="h-6 w-6 text-yellow-600 flex-shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <div>
-                                <p class="font-semibold text-yellow-900 mb-1">Important Notice</p>
-                                <p class="text-sm text-yellow-800">By submitting this claim, you confirm that all
-                                    information provided is accurate and complete. False claims may result in policy
-                                    cancellation.</p>
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex gap-3">
+                                <svg class="h-6 w-6 text-yellow-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold text-yellow-900 mb-1">Important Notice</p>
+                                    <p class="text-sm text-yellow-800">By submitting this claim, you confirm that all
+                                        information provided is accurate and complete. False claims may result in policy
+                                        cancellation.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    }        
                     <!-- Navigation Buttons -->
                     <div class="flex gap-4 mt-8 pt-6 border-t border-gray-200">
-                        <button *ngIf="currentStep > 0" type="button" (click)="previousStep()"
-                            class="btn-outline flex-1">
-                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                            </svg>
-                            Previous
-                        </button>
+                        @if(currentStep > 0){
+                            <button type="button" (click)="previousStep()"
+                                class="btn-outline flex-1">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                </svg>
+                                Previous
+                            </button>
+                        }    
+                        @if(currentStep < steps.length - 1){
+                            <button type="button" (click)="nextStep()"
+                                class="btn-primary flex-1" [disabled]="!canProceed()">
+                                Next
+                                <svg class="h-5 w-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </button>
+                        }    
 
-                        <button *ngIf="currentStep < steps.length - 1" type="button" (click)="nextStep()"
-                            class="btn-primary flex-1" [disabled]="!canProceed()">
-                            Next
-                            <svg class="h-5 w-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-
-                        <button *ngIf="currentStep === steps.length - 1" type="submit" class="btn-primary flex-1"
-                            [disabled]="submitting">
-                            <span *ngIf="submitting"
-                                class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></span>
-                            <svg *ngIf="!submitting" class="h-5 w-5 mr-2" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            {{ submitting ? 'Submitting...' : 'Submit Claim' }}
-                        </button>
+                        @if(currentStep === steps.length - 1){
+                            <button type="submit" class="btn-primary flex-1"
+                                [disabled]="submitting">
+                                @if(submitting){
+                                    <span class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></span>
+                                }
+                                @else{
+                                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                }
+                                {{ submitting ? 'Submitting...' : 'Submit Claim' }}
+                            </button>
+                        }    
                     </div>
                 </form>
             </div>
@@ -289,23 +321,24 @@
     </main>
 
     <!-- Success Modal -->
-    <div *ngIf="showSuccessModal"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
-        <div class="bg-white rounded-2xl max-w-md w-full p-8 text-center animate-scale-in">
-            <div class="h-16 w-16 rounded-full bg-accent-100 flex items-center justify-center mx-auto mb-4">
-                <svg class="h-8 w-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">Claim Submitted!</h2>
-            <p class="text-gray-600 mb-6">Your claim has been successfully submitted. We'll review it and get back to
-                you within 24-48 hours.</p>
-            <p class="text-sm text-gray-600 mb-6">Claim Number: <span class="font-bold text-primary-600">CLM-2024-{{
-                    claimNumber }}</span></p>
-            <div class="flex gap-3">
-                <a routerLink="/customer/claims" class="btn-primary flex-1">View Claims</a>
-                <a routerLink="/customer" class="btn-outline flex-1">Dashboard</a>
+    @if(showSuccessModal){
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
+            <div class="bg-white rounded-2xl max-w-md w-full p-8 text-center animate-scale-in">
+                <div class="h-16 w-16 rounded-full bg-accent-100 flex items-center justify-center mx-auto mb-4">
+                    <svg class="h-8 w-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Claim Submitted!</h2>
+                <p class="text-gray-600 mb-6">Your claim has been successfully submitted. We'll review it and get back to
+                    you within 24-48 hours.</p>
+                <p class="text-sm text-gray-600 mb-6">Claim Number: <span class="font-bold text-primary-600">CLM-2024-{{
+                        claimNumber }}</span></p>
+                <div class="flex gap-3">
+                    <a routerLink="/customer/claims" class="btn-primary flex-1">View Claims</a>
+                    <a routerLink="/customer" class="btn-outline flex-1">Dashboard</a>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
