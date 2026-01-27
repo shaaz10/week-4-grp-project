@@ -96,7 +96,6 @@ export class CustomerRecommendationsComponent implements OnInit {
             });
         }
     }
-
     getCoverageAmount(amount: number): string {
         if (amount === -1) return 'Unlimited';
         return new Intl.NumberFormat('en-IN', {
