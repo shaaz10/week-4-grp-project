@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
+//Claim Interface
 interface Claim {
   id: number;
   claimNumber: string;
@@ -18,124 +19,17 @@ interface Claim {
   selector: 'app-customer-claim-history',
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
-  template: `
-    <div class="min-h-screen bg-gray-50">
-      <!-- Header -->
-      <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="px-4 sm:px-6 lg:px-8 py-4">
-          <div class="flex items-center gap-4">
-            <a routerLink="/customer" class="text-gray-600 hover:text-gray-900 transition-colors">
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-              </svg>
-            </a>
-            <div>
-              <h1 class="text-2xl font-bold text-gray-900">Claim History</h1>
-              <p class="text-sm text-gray-600">Track all your submitted claims</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- Main Content -->
-      <main class="px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-medium transition-all animate-fade-in">
-            <div class="flex items-center justify-between mb-4">
-              <div class="h-12 w-12 rounded-lg bg-accent-100 flex items-center justify-center">
-                <svg class="h-6 w-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="text-2xl font-bold text-gray-900 mb-1">{{ getApprovedClaims() }}</div>
-            <div class="text-sm text-gray-600">Approved Claims</div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-medium transition-all animate-fade-in" style="animation-delay: 0.1s;">
-            <div class="flex items-center justify-between mb-4">
-              <div class="h-12 w-12 rounded-lg bg-yellow-100 flex items-center justify-center">
-                <svg class="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="text-2xl font-bold text-gray-900 mb-1">{{ getPendingClaims() }}</div>
-            <div class="text-sm text-gray-600">Pending Review</div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-medium transition-all animate-fade-in" style="animation-delay: 0.2s;">
-            <div class="flex items-center justify-between mb-4">
-              <div class="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center">
-                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="text-2xl font-bold text-gray-900 mb-1">\${{ getTotalClaimed() | number }}</div>
-            <div class="text-sm text-gray-600">Total Claimed</div>
-          </div>
-        </div>
-
-        <!-- Claims List -->
-        <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden animate-fade-in-up">
-          <div class="overflow-x-auto">
-            <table class="table-modern">
-              <thead>
-                <tr>
-                  <th>Claim Number</th>
-                  <th>Policy</th>
-                  <th>Type</th>
-                  <th>Amount</th>
-                  <th>Submitted</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let claim of claims; let i = index" class="animate-fade-in" [style.animation-delay]="i * 0.05 + 's'">
-                  <td class="font-semibold text-primary-600">{{ claim.claimNumber }}</td>
-                  <td>{{ claim.policyNumber }}</td>
-                  <td>{{ claim.type }}</td>
-                  <td class="font-semibold">\${{ claim.amount | number }}</td>
-                  <td>{{ claim.dateSubmitted | date:'MMM d, y' }}</td>
-                  <td>
-                    <span class="badge" 
-                          [ngClass]="{
-                            'badge-success': claim.status === 'Approved',
-                            'badge-warning': claim.status === 'Pending',
-                            'badge-error': claim.status === 'Rejected',
-                            'badge-info': claim.status === 'Under Review'
-                          }">
-                      {{ claim.status }}
-                    </span>
-                  </td>
-                  <td>
-                    <button (click)="viewClaim(claim)" 
-                      class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors">
-                      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </main>
-    </div>
-  `
+  templateUrl:'./customer-claim-history.component.html' 
 })
 export class CustomerClaimHistoryComponent implements OnInit {
+  //Claims Array
   claims: Claim[] = [];
 
   ngOnInit() {
     this.loadClaims();
   }
 
+  //LoadClaims
   loadClaims() {
     this.claims = [
       {
@@ -171,18 +65,22 @@ export class CustomerClaimHistoryComponent implements OnInit {
     ];
   }
 
+  //Returns the total number of approved claims.
   getApprovedClaims(): number {
     return this.claims.filter(c => c.status === 'Approved').length;
   }
 
+  //Returns the number of claims that are still in progress
   getPendingClaims(): number {
     return this.claims.filter(c => c.status === 'Pending' || c.status === 'Under Review').length;
   }
 
+  //Calculates the total claimed amount across all claims.
   getTotalClaimed(): number {
     return this.claims.reduce((sum, c) => sum + c.amount, 0);
   }
 
+  //Triggered when user clicks "View" on a claim.
   viewClaim(claim: Claim) {
     alert('View claim details: ' + claim.claimNumber);
   }
