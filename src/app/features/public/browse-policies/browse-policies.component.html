@@ -1,0 +1,197 @@
+<div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <!-- Header with Hartford Branding -->
+    <!-- Navigation -->
+    <app-navbar></app-navbar>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-600 via-primary-500 to-blue-600 text-white py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
+                    Find the Perfect Insurance Plan
+                </h1>
+                <p class="text-xl text-primary-100 mb-8 animate-fade-in" style="animation-delay: 0.1s;">
+                    Compare and choose from our comprehensive range of insurance products designed to protect what
+                    matters most
+                </p>
+
+                <!-- Search Bar -->
+                <div class="max-w-2xl mx-auto animate-fade-in-up">
+                    <div class="relative">
+                        <input type="text" [(ngModel)]="searchTerm" placeholder="Search for insurance plans..."
+                            class="w-full px-6 py-4 pr-12 rounded-xl text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-primary-300 shadow-lg">
+                        <svg class="absolute right-4 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="bg-white border-b border-gray-200 sticky top-20 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center gap-4 overflow-x-auto">
+                <button *ngFor="let category of categories" (click)="selectedCategory = category.id"
+                    [class.bg-primary-600]="selectedCategory === category.id"
+                    [class.text-white]="selectedCategory === category.id"
+                    [class.bg-gray-100]="selectedCategory !== category.id"
+                    [class.text-gray-700]="selectedCategory !== category.id"
+                    class="flex items-center gap-2 px-6 py-3 rounded-lg font-medium whitespace-nowrap transition-all hover:shadow-md">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="category.icon">
+                        </path>
+                    </svg>
+                    {{ category.name }}
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                    {{ selectedCategory === 'all' ? 'All Insurance Plans' : (selectedCategory | titlecase) + ' Insurance
+                    Plans' }}
+                </h2>
+                <p class="text-gray-600">{{ filteredProducts.length }} plans available</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div *ngFor="let product of filteredProducts; let i = index"
+                    class="group bg-white rounded-2xl border-2 border-gray-200 hover:border-primary-400 hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
+                    [style.animation-delay]="i * 0.1 + 's'">
+
+                    <!-- Popular Badge -->
+                    <div *ngIf="product.popular"
+                        class="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-center py-2 font-semibold text-sm">
+                        ⭐ Most Popular
+                    </div>
+
+                    <!-- Discount Badge -->
+                    <div *ngIf="product.discount && !product.popular"
+                        class="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-center py-2 font-semibold text-sm">
+                        🎉 {{ product.discount }}
+                    </div>
+
+                    <div class="p-6">
+                        <!-- Icon -->
+                        <div
+                            class="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary-100 to-blue-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="h-8 w-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                                </path>
+                            </svg>
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors">
+                            {{ product.name }}
+                        </h3>
+
+                        <!-- Description -->
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                            {{ product.description }}
+                        </p>
+
+                        <!-- Coverage & Premium -->
+                        <div class="grid grid-cols-2 gap-4 mb-4 p-4 bg-gray-50 rounded-xl">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Coverage</p>
+                                <p class="font-bold text-gray-900">{{ product.coverageRange }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Premium</p>
+                                <p class="font-bold text-primary-600">{{ product.premiumRange }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Features -->
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold text-gray-700 mb-3">Key Features:</p>
+                            <ul class="space-y-2">
+                                <li *ngFor="let feature of product.features.slice(0, 3)"
+                                    class="flex items-start gap-2 text-sm text-gray-600">
+                                    <svg class="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    {{ feature }}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex gap-3">
+                            <button (click)="requestQuote(product)"
+                                class="flex-1 bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-semibold transition-all hover:shadow-lg">
+                                Get Quote
+                            </button>
+                            <button
+                                class="px-4 py-3 border-2 border-gray-300 hover:border-primary-600 text-gray-700 hover:text-primary-600 rounded-lg font-semibold transition-all">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results -->
+            <div *ngIf="filteredProducts.length === 0" class="text-center py-16">
+                <svg class="h-24 w-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">No policies found</h3>
+                <p class="text-gray-600">Try adjusting your search or filter criteria</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gradient-to-r from-primary-600 to-blue-600 text-white py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Need Help Choosing the Right Plan?</h2>
+            <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+                Our insurance experts are here to help you find the perfect coverage for your needs
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a routerLink="/calculators"
+                    class="px-8 py-4 bg-white text-primary-600 rounded-lg font-bold hover:shadow-xl transition-all">
+                    Use Calculator
+                </a>
+                <a href="tel:1-800-HARTFORD"
+                    class="px-8 py-4 bg-primary-700 text-white rounded-lg font-bold hover:bg-primary-800 transition-all">
+                    Call 1-800-HARTFORD
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="/assets/hartford-logo.png" alt="The Hartford" class="h-10 opacity-75 mb-2">
+                    <p class="text-sm">© 2024 The Hartford. All rights reserved.</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

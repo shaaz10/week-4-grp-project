@@ -1,0 +1,332 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <app-navbar></app-navbar>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-primary-50 via-white to-blue-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in-up">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 rounded-full mb-6">
+                        <span class="h-2 w-2 bg-primary-600 rounded-full animate-pulse"></span>
+                        <span class="text-sm font-medium text-primary-700">Trusted by 10M+ Customers</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                        Let's find you the
+                        <span class="text-gradient">Best Insurance</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+                        Compare & buy insurance plans from 51+ insurers offering lowest prices. Quick, easy &
+                        hassle-free.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100">
+                                <svg class="h-6 w-6 text-primary-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">51 insurers offering</div>
+                                <div class="text-sm text-gray-600">lowest prices</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                                <svg class="h-6 w-6 text-accent-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">Quick, easy &</div>
+                                <div class="text-sm text-gray-600">hassle free</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a routerLink="/register"
+                        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white text-lg font-semibold rounded-lg hover:shadow-primary-lg transition-all duration-300 hover:scale-105">
+                        Get Your Free Quote
+                        <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="relative animate-fade-in">
+                    <div class="relative z-10">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80"
+                            alt="Insurance Solutions" class="rounded-2xl shadow-large">
+                    </div>
+                    <div
+                        class="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-primary-200 to-blue-200 rounded-2xl -z-10">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white border-y border-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div *ngFor="let stat of stats; let i = index" class="text-center animate-fade-in-up"
+                    [style.animation-delay]="i * 0.1 + 's'">
+                    <div class="text-3xl md:text-4xl font-bold text-primary-600 mb-2">{{ stat.value }}</div>
+                    <div class="text-sm md:text-base text-gray-600">{{ stat.label }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-primary-600 uppercase tracking-wider text-sm font-semibold">Our Products</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+                    Insurance Solutions for Every Need
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Comprehensive coverage options designed to protect you, your family, and your business.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div *ngFor="let product of products; let i = index"
+                    class="group bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-300 hover:shadow-medium transition-all duration-300 cursor-pointer animate-scale-in"
+                    [style.animation-delay]="i * 0.1 + 's'">
+                    <div
+                        class="flex items-center justify-center h-16 w-16 rounded-xl bg-gradient-to-br from-primary-100 to-blue-100 mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="h-8 w-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div *ngIf="product.discount"
+                        class="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full mb-3">
+                        {{ product.discount }}
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                        {{ product.title }}
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                        {{ product.description }}
+                    </p>
+                    <a href="#" class="inline-flex items-center text-primary-600 font-semibold text-sm group/link">
+                        View Plans
+                        <svg class="ml-1 h-4 w-4 transition-transform group-hover/link:translate-x-1" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80"
+                            alt="Why Choose Us" class="rounded-2xl shadow-large">
+                        <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-medium p-6 max-w-xs">
+                            <div class="flex items-center gap-4">
+                                <div class="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
+                                    <svg class="h-6 w-6 text-primary-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-gray-900">98%</div>
+                                    <div class="text-sm text-gray-600">Customer Satisfaction</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <span class="text-primary-600 uppercase tracking-wider text-sm font-semibold">Why Choose Us</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-6">
+                        Experience the PolicyPro
+                        <span class="text-primary-600">Difference</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        When you choose PolicyPro, you're not just getting insurance—you're getting a partner committed
+                        to your protection and peace of mind.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div *ngFor="let feature of features; let i = index"
+                            class="flex gap-4 p-4 rounded-xl bg-gray-50 hover:bg-primary-50 border border-gray-100 hover:border-primary-200 transition-all duration-300 animate-slide-in-right"
+                            [style.animation-delay]="i * 0.15 + 's'">
+                            <div
+                                class="h-12 w-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="h-6 w-6 text-primary-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-1">{{ feature.title }}</h3>
+                                <p class="text-gray-600 text-sm">{{ feature.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-primary-600 uppercase tracking-wider text-sm font-semibold">Testimonials</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+                    What Our Customers Say
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Join thousands of satisfied customers who trust us with their insurance needs.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div *ngFor="let testimonial of testimonials; let i = index"
+                    class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-200 hover:shadow-medium transition-all duration-300 animate-fade-in-up"
+                    [style.animation-delay]="i * 0.2 + 's'">
+                    <div class="flex gap-1 mb-4">
+                        <svg *ngFor="let star of [1,2,3,4,5]" class="h-5 w-5 text-yellow-400 fill-yellow-400"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        "{{ testimonial.quote }}"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="h-12 w-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">{{ testimonial.name.charAt(0) }}</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-900">{{ testimonial.name }}</div>
+                            <div class="text-sm text-gray-600">{{ testimonial.title }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-primary-600 via-primary-500 to-blue-600 relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxIDEuNzktNCA0LTRzNCAxLjc5IDQgNC0xLjc5IDQtNCA0LTQtMS43OS00LTR6bTAgMTBjMC0yLjIxIDEuNzktNCA0LTRzNCAxLjc5IDQgNC0xLjc5IDQtNCA0LTQtMS43OS00LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20">
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl mx-auto text-center text-white">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">
+                    Ready to Protect What Matters?
+                </h2>
+                <p class="text-xl mb-10 opacity-90">
+                    Get a free, no-obligation quote in minutes. Join millions who trust PolicyPro with their protection.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a routerLink="/register"
+                        class="px-10 py-4 bg-white text-primary-600 text-lg font-bold rounded-lg hover:shadow-large transition-all duration-300 hover:scale-105">
+                        Get Your Free Quote
+                    </a>
+                    <a href="tel:1-800-POLICY"
+                        class="px-10 py-4 border-2 border-white text-white hover:bg-white/10 text-lg font-bold transition-all duration-300 rounded-lg">
+                        Call 1-800-POLICY
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-gray-300 py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <!-- Logo Column -->
+                <div class="lg:col-span-2">
+                    <a routerLink="/" class="flex items-center gap-2 mb-6">
+                        <div
+                            class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-600 to-primary-500 flex items-center justify-center">
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold text-white">PolicyPro</span>
+                            <span class="block text-xs text-primary-400 uppercase tracking-wider">Insurance
+                                Solutions</span>
+                        </div>
+                    </a>
+                    <p class="text-gray-400 max-w-sm mb-6">
+                        Protecting what matters most to families and businesses with comprehensive insurance solutions.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Products</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Health Insurance</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Life Insurance</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Car Insurance</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Home Insurance</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">Company</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Press</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Partners</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">File a Claim</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">FAQs</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition-colors">Find an Agent</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">
+                    © 2026 PolicyPro Insurance. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm">
+                    <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

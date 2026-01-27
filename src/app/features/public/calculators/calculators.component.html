@@ -1,0 +1,737 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <a routerLink="/" class="text-gray-600 hover:text-gray-900 transition-colors">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                    </a>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Insurance Calculators</h1>
+                        <p class="text-sm text-gray-600">Calculate premiums and coverage for all insurance types</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Calculator Selection -->
+            <div *ngIf="!activeCalculator" class="animate-fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Choose a Calculator</h2>
+                    <p class="text-lg text-gray-600">Select the type of insurance you want to calculate</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Life Insurance Calculator -->
+                    <div (click)="selectCalculator('life')"
+                        class="group bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-300 hover:shadow-medium transition-all duration-300 cursor-pointer animate-scale-in">
+                        <div
+                            class="flex items-center justify-center h-16 w-16 rounded-xl bg-gradient-to-br from-primary-100 to-blue-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="h-8 w-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                            Life Insurance</h3>
+                        <p class="text-gray-600 text-sm">Calculate ideal life coverage based on your income and
+                            dependents</p>
+                    </div>
+
+                    <!-- Health Insurance Calculator -->
+                    <div (click)="selectCalculator('health')"
+                        class="group bg-white rounded-xl p-8 border border-gray-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300 cursor-pointer animate-scale-in"
+                        style="animation-delay: 0.1s;">
+                        <div
+                            class="flex items-center justify-center h-16 w-16 rounded-xl bg-gradient-to-br from-accent-100 to-green-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="h-8 w-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-accent-600 transition-colors">
+                            Health Insurance</h3>
+                        <p class="text-gray-600 text-sm">Estimate health insurance premium for you and your family</p>
+                    </div>
+
+                    <!-- Car Insurance Calculator -->
+                    <div (click)="selectCalculator('car')"
+                        class="group bg-white rounded-xl p-8 border border-gray-200 hover:border-blue-300 hover:shadow-medium transition-all duration-300 cursor-pointer animate-scale-in"
+                        style="animation-delay: 0.2s;">
+                        <div
+                            class="flex items-center justify-center h-16 w-16 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">Car
+                            Insurance</h3>
+                        <p class="text-gray-600 text-sm">Calculate car insurance premium with add-ons</p>
+                    </div>
+
+                    <!-- Term Insurance Calculator -->
+                    <div (click)="selectCalculator('term')"
+                        class="group bg-white rounded-xl p-8 border border-gray-200 hover:border-purple-300 hover:shadow-medium transition-all duration-300 cursor-pointer animate-scale-in"
+                        style="animation-delay: 0.3s;">
+                        <div
+                            class="flex items-center justify-center h-16 w-16 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                            Term Insurance</h3>
+                        <p class="text-gray-600 text-sm">Calculate monthly premium for term life insurance</p>
+                    </div>
+
+                    <!-- Home Insurance Calculator -->
+                    <div (click)="selectCalculator('home')"
+                        class="group bg-white rounded-xl p-8 border border-gray-200 hover:border-orange-300 hover:shadow-medium transition-all duration-300 cursor-pointer animate-scale-in"
+                        style="animation-delay: 0.4s;">
+                        <div
+                            class="flex items-center justify-center h-16 w-16 rounded-xl bg-gradient-to-br from-orange-100 to-yellow-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
+                            Home Insurance</h3>
+                        <p class="text-gray-600 text-sm">Estimate premium for your home or property insurance</p>
+                    </div>
+
+                    <!-- Investment Calculator -->
+                    <div (click)="selectCalculator('investment')"
+                        class="group bg-white rounded-xl p-8 border border-gray-200 hover:border-green-300 hover:shadow-medium transition-all duration-300 cursor-pointer animate-scale-in"
+                        style="animation-delay: 0.5s;">
+                        <div
+                            class="flex items-center justify-center h-16 w-16 rounded-xl bg-gradient-to-br from-green-100 to-emerald-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
+                            Investment Calculator</h3>
+                        <p class="text-gray-600 text-sm">Calculate returns on your investment insurance plans</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Life Insurance Calculator -->
+            <div *ngIf="activeCalculator === 'life'" class="animate-fade-in">
+                <button (click)="activeCalculator = ''"
+                    class="mb-6 text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Calculators
+                </button>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Life Insurance Calculator</h2>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Your Age</label>
+                                <input type="number" [(ngModel)]="lifeInsurance.age" class="input-modern" min="18"
+                                    max="65">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Annual Income (₹)</label>
+                                <input type="number" [(ngModel)]="lifeInsurance.annualIncome" class="input-modern"
+                                    step="50000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Number of
+                                    Dependents</label>
+                                <input type="number" [(ngModel)]="lifeInsurance.dependents" class="input-modern" min="0"
+                                    max="10">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Existing Coverage
+                                    (₹)</label>
+                                <input type="number" [(ngModel)]="lifeInsurance.existingCoverage" class="input-modern"
+                                    step="100000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Outstanding Liabilities
+                                    (₹)</label>
+                                <input type="number" [(ngModel)]="lifeInsurance.liabilities" class="input-modern"
+                                    step="50000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Years to
+                                    Retirement</label>
+                                <input type="number" [(ngModel)]="lifeInsurance.yearsToRetirement" class="input-modern"
+                                    min="1" max="40">
+                            </div>
+
+                            <button (click)="calculateLifeInsurance()" class="btn-primary w-full">
+                                Calculate Coverage
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-primary-50 to-blue-50 rounded-2xl p-8 border border-primary-200">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Recommended Coverage</h3>
+
+                        <div class="bg-white rounded-xl p-6 mb-6">
+                            <p class="text-sm text-gray-600 mb-2">Ideal Life Insurance Coverage</p>
+                            <p class="text-4xl font-bold text-primary-600">₹{{ lifeInsurance.result | number }}</p>
+                        </div>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between py-3 border-b border-primary-100">
+                                <span class="text-gray-600">Annual Income</span>
+                                <span class="font-semibold text-gray-900">₹{{ lifeInsurance.annualIncome | number
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-primary-100">
+                                <span class="text-gray-600">Years to Retirement</span>
+                                <span class="font-semibold text-gray-900">{{ lifeInsurance.yearsToRetirement }}
+                                    years</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-primary-100">
+                                <span class="text-gray-600">Dependents</span>
+                                <span class="font-semibold text-gray-900">{{ lifeInsurance.dependents }}</span>
+                            </div>
+                            <div class="flex justify-between py-3">
+                                <span class="text-gray-600">Liabilities</span>
+                                <span class="font-semibold text-gray-900">₹{{ lifeInsurance.liabilities | number
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-sm text-blue-900">
+                                <strong>Note:</strong> This calculation uses the Human Life Value method. The
+                                recommended coverage ensures your family's financial security.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Insurance Calculator -->
+            <div *ngIf="activeCalculator === 'health'" class="animate-fade-in">
+                <button (click)="activeCalculator = ''"
+                    class="mb-6 text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Calculators
+                </button>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Health Insurance Calculator</h2>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Your Age</label>
+                                <input type="number" [(ngModel)]="healthInsurance.age" class="input-modern" min="18"
+                                    max="80">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Family Members</label>
+                                <input type="number" [(ngModel)]="healthInsurance.familyMembers" class="input-modern"
+                                    min="1" max="10">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">City Type</label>
+                                <select [(ngModel)]="healthInsurance.city" class="input-modern">
+                                    <option value="metro">Metro City</option>
+                                    <option value="tier1">Tier 1 City</option>
+                                    <option value="tier2">Tier 2 City</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Room Type</label>
+                                <select [(ngModel)]="healthInsurance.roomType" class="input-modern">
+                                    <option value="shared">Shared Room</option>
+                                    <option value="private">Private Room</option>
+                                    <option value="single">Single Private Room</option>
+                                </select>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" [(ngModel)]="healthInsurance.existingConditions"
+                                    class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label class="text-sm font-medium text-gray-700">Pre-existing Conditions</label>
+                            </div>
+
+                            <button (click)="calculateHealthInsurance()" class="btn-primary w-full">
+                                Calculate Premium
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-accent-50 to-green-50 rounded-2xl p-8 border border-accent-200">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Estimated Premium</h3>
+
+                        <div class="bg-white rounded-xl p-6 mb-6">
+                            <p class="text-sm text-gray-600 mb-2">Annual Premium</p>
+                            <p class="text-4xl font-bold text-accent-600">₹{{ healthInsurance.result | number }}</p>
+                            <p class="text-sm text-gray-600 mt-2">₹{{ (healthInsurance.result / 12) | number }} per
+                                month</p>
+                        </div>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between py-3 border-b border-accent-100">
+                                <span class="text-gray-600">Family Members</span>
+                                <span class="font-semibold text-gray-900">{{ healthInsurance.familyMembers }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-accent-100">
+                                <span class="text-gray-600">City Type</span>
+                                <span class="font-semibold text-gray-900 capitalize">{{ healthInsurance.city }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-accent-100">
+                                <span class="text-gray-600">Room Type</span>
+                                <span class="font-semibold text-gray-900 capitalize">{{ healthInsurance.roomType
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between py-3">
+                                <span class="text-gray-600">Pre-existing Conditions</span>
+                                <span class="font-semibold text-gray-900">{{ healthInsurance.existingConditions ? 'Yes'
+                                    : 'No' }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-sm text-green-900">
+                                <strong>Tip:</strong> Consider a higher coverage amount for better protection.
+                                Recommended coverage: ₹5-10 lakhs per person.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car Insurance Calculator -->
+            <div *ngIf="activeCalculator === 'car'" class="animate-fade-in">
+                <button (click)="activeCalculator = ''"
+                    class="mb-6 text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Calculators
+                </button>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Car Insurance Calculator</h2>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Car Value (₹)</label>
+                                <input type="number" [(ngModel)]="carInsurance.carValue" class="input-modern"
+                                    step="50000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Car Age (years)</label>
+                                <input type="number" [(ngModel)]="carInsurance.carAge" class="input-modern" min="0"
+                                    max="15">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">City Type</label>
+                                <select [(ngModel)]="carInsurance.city" class="input-modern">
+                                    <option value="metro">Metro City</option>
+                                    <option value="tier1">Tier 1 City</option>
+                                    <option value="tier2">Tier 2 City</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Coverage Type</label>
+                                <select [(ngModel)]="carInsurance.coverageType" class="input-modern">
+                                    <option value="comprehensive">Comprehensive</option>
+                                    <option value="third-party">Third Party Only</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">Add-ons</label>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" [checked]="hasAddOn('zero-dep')"
+                                            (change)="toggleAddOn('zero-dep')"
+                                            class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                        <label class="text-sm text-gray-700">Zero Depreciation</label>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" [checked]="hasAddOn('roadside')"
+                                            (change)="toggleAddOn('roadside')"
+                                            class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                        <label class="text-sm text-gray-700">Roadside Assistance</label>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" [checked]="hasAddOn('engine')"
+                                            (change)="toggleAddOn('engine')"
+                                            class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                        <label class="text-sm text-gray-700">Engine Protection</label>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" [checked]="hasAddOn('ncb')" (change)="toggleAddOn('ncb')"
+                                            class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                        <label class="text-sm text-gray-700">NCB Protection</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button (click)="calculateCarInsurance()" class="btn-primary w-full">
+                                Calculate Premium
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Estimated Premium</h3>
+
+                        <div class="bg-white rounded-xl p-6 mb-6">
+                            <p class="text-sm text-gray-600 mb-2">Annual Premium</p>
+                            <p class="text-4xl font-bold text-blue-600">₹{{ carInsurance.result | number }}</p>
+                        </div>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between py-3 border-b border-blue-100">
+                                <span class="text-gray-600">Car Value</span>
+                                <span class="font-semibold text-gray-900">₹{{ carInsurance.carValue | number }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-blue-100">
+                                <span class="text-gray-600">Coverage Type</span>
+                                <span class="font-semibold text-gray-900 capitalize">{{ carInsurance.coverageType
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-blue-100">
+                                <span class="text-gray-600">Add-ons Selected</span>
+                                <span class="font-semibold text-gray-900">{{ carInsurance.addOns.length }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-sm text-blue-900">
+                                <strong>Savings Tip:</strong> Comprehensive coverage with zero depreciation is
+                                recommended for new cars (0-3 years old).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Term Insurance Calculator -->
+            <div *ngIf="activeCalculator === 'term'" class="animate-fade-in">
+                <button (click)="activeCalculator = ''"
+                    class="mb-6 text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Calculators
+                </button>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Term Insurance Calculator</h2>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Your Age</label>
+                                <input type="number" [(ngModel)]="termInsurance.age" class="input-modern" min="18"
+                                    max="65">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Gender</label>
+                                <select [(ngModel)]="termInsurance.gender" class="input-modern">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Coverage Amount
+                                    (₹)</label>
+                                <input type="number" [(ngModel)]="termInsurance.coverageAmount" class="input-modern"
+                                    step="100000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Policy Term
+                                    (years)</label>
+                                <input type="number" [(ngModel)]="termInsurance.term" class="input-modern" min="10"
+                                    max="40">
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" [(ngModel)]="termInsurance.smoker"
+                                    class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label class="text-sm font-medium text-gray-700">Smoker/Tobacco User</label>
+                            </div>
+
+                            <button (click)="calculateTermInsurance()" class="btn-primary w-full">
+                                Calculate Premium
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-200">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Monthly Premium</h3>
+
+                        <div class="bg-white rounded-xl p-6 mb-6">
+                            <p class="text-sm text-gray-600 mb-2">Monthly Payment</p>
+                            <p class="text-4xl font-bold text-purple-600">₹{{ termInsurance.result | number }}</p>
+                            <p class="text-sm text-gray-600 mt-2">₹{{ (termInsurance.result * 12) | number }} per year
+                            </p>
+                        </div>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between py-3 border-b border-purple-100">
+                                <span class="text-gray-600">Coverage Amount</span>
+                                <span class="font-semibold text-gray-900">₹{{ termInsurance.coverageAmount | number
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-purple-100">
+                                <span class="text-gray-600">Policy Term</span>
+                                <span class="font-semibold text-gray-900">{{ termInsurance.term }} years</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-purple-100">
+                                <span class="text-gray-600">Total Premium</span>
+                                <span class="font-semibold text-gray-900">₹{{ (termInsurance.result * 12 *
+                                    termInsurance.term) | number }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="text-sm text-purple-900">
+                                <strong>Note:</strong> Term insurance provides pure life cover at affordable premiums.
+                                Ideal for income protection.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Insurance Calculator -->
+            <div *ngIf="activeCalculator === 'home'" class="animate-fade-in">
+                <button (click)="activeCalculator = ''"
+                    class="mb-6 text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Calculators
+                </button>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Home Insurance Calculator</h2>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Property Value (₹)</label>
+                                <input type="number" [(ngModel)]="homeInsurance.propertyValue" class="input-modern"
+                                    step="100000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Property Type</label>
+                                <select [(ngModel)]="homeInsurance.propertyType" class="input-modern">
+                                    <option value="apartment">Apartment</option>
+                                    <option value="independent">Independent House</option>
+                                    <option value="villa">Villa</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Location</label>
+                                <select [(ngModel)]="homeInsurance.location" class="input-modern">
+                                    <option value="metro">Metro City</option>
+                                    <option value="tier1">Tier 1 City</option>
+                                    <option value="tier2">Tier 2 City</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Construction Type</label>
+                                <select [(ngModel)]="homeInsurance.constructionType" class="input-modern">
+                                    <option value="rcc">RCC (Reinforced Concrete)</option>
+                                    <option value="brick">Brick</option>
+                                    <option value="wood">Wood</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Property Age
+                                    (years)</label>
+                                <input type="number" [(ngModel)]="homeInsurance.age" class="input-modern" min="0"
+                                    max="50">
+                            </div>
+
+                            <button (click)="calculateHomeInsurance()" class="btn-primary w-full">
+                                Calculate Premium
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8 border border-orange-200">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Estimated Premium</h3>
+
+                        <div class="bg-white rounded-xl p-6 mb-6">
+                            <p class="text-sm text-gray-600 mb-2">Annual Premium</p>
+                            <p class="text-4xl font-bold text-orange-600">₹{{ homeInsurance.result | number }}</p>
+                        </div>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between py-3 border-b border-orange-100">
+                                <span class="text-gray-600">Property Value</span>
+                                <span class="font-semibold text-gray-900">₹{{ homeInsurance.propertyValue | number
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-orange-100">
+                                <span class="text-gray-600">Property Type</span>
+                                <span class="font-semibold text-gray-900 capitalize">{{ homeInsurance.propertyType
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-orange-100">
+                                <span class="text-gray-600">Construction Type</span>
+                                <span class="font-semibold text-gray-900 uppercase">{{ homeInsurance.constructionType
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-200">
+                            <p class="text-sm text-orange-900">
+                                <strong>Coverage Includes:</strong> Structure, contents, personal belongings, and
+                                third-party liability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investment Calculator -->
+            <div *ngIf="activeCalculator === 'investment'" class="animate-fade-in">
+                <button (click)="activeCalculator = ''"
+                    class="mb-6 text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Calculators
+                </button>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Investment Calculator</h2>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Monthly Investment
+                                    (₹)</label>
+                                <input type="number" [(ngModel)]="investmentCalculator.monthlyInvestment"
+                                    class="input-modern" step="1000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Investment Period
+                                    (years)</label>
+                                <input type="number" [(ngModel)]="investmentCalculator.years" class="input-modern"
+                                    min="1" max="40">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Expected Annual Return
+                                    (%)</label>
+                                <input type="number" [(ngModel)]="investmentCalculator.expectedReturn"
+                                    class="input-modern" min="1" max="30" step="0.5">
+                            </div>
+
+                            <button (click)="calculateInvestment()" class="btn-primary w-full">
+                                Calculate Returns
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Investment Summary</h3>
+
+                        <div class="space-y-4 mb-6">
+                            <div class="bg-white rounded-xl p-6">
+                                <p class="text-sm text-gray-600 mb-2">Maturity Amount</p>
+                                <p class="text-4xl font-bold text-green-600">₹{{
+                                    investmentCalculator.result.maturityAmount | number }}</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white rounded-xl p-4">
+                                    <p class="text-xs text-gray-600 mb-1">Total Invested</p>
+                                    <p class="text-xl font-bold text-gray-900">₹{{
+                                        investmentCalculator.result.totalInvested | number }}</p>
+                                </div>
+                                <div class="bg-white rounded-xl p-4">
+                                    <p class="text-xs text-gray-600 mb-1">Total Returns</p>
+                                    <p class="text-xl font-bold text-green-600">₹{{
+                                        investmentCalculator.result.totalReturns | number }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between py-3 border-b border-green-100">
+                                <span class="text-gray-600">Monthly Investment</span>
+                                <span class="font-semibold text-gray-900">₹{{ investmentCalculator.monthlyInvestment |
+                                    number }}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-green-100">
+                                <span class="text-gray-600">Investment Period</span>
+                                <span class="font-semibold text-gray-900">{{ investmentCalculator.years }} years</span>
+                            </div>
+                            <div class="flex justify-between py-3">
+                                <span class="text-gray-600">Expected Return</span>
+                                <span class="font-semibold text-gray-900">{{ investmentCalculator.expectedReturn }}%
+                                    p.a.</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-sm text-green-900">
+                                <strong>Power of Compounding:</strong> Your investment grows {{
+                                ((investmentCalculator.result.maturityAmount / investmentCalculator.result.totalInvested
+                                - 1) * 100).toFixed(1) }}% over {{ investmentCalculator.years }} years!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
