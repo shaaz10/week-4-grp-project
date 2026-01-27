@@ -78,7 +78,7 @@
                                 <h2 class="text-xl font-bold text-gray-900 mb-6">Select Policy</h2>
 
                                 <div class="grid gap-4">
-                                    @for(policy of policies;track policy.id){
+                                    @for(policy of policies;track policy.id;track file.name){
                                         <div (click)="selectPolicy(policy)"
                                             class="p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-medium"
                                             [ngClass]="{

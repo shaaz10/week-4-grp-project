@@ -40,7 +40,6 @@ export class CustomerPoliciesComponent implements OnInit {
     }
 
     loadPolicies() {
-        // Sample data - replace with actual API call
         this.policies = [
             {
                 id: 1,

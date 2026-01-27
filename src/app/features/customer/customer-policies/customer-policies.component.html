@@ -135,7 +135,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let policy of filteredPolicies; let i = index" class="animate-fade-in"
+                    @for(let policy of filteredPolicies; track policy.id; let i = $index){
+                        <tr class="animate-fade-in"
                             [style.animation-delay]="i * 0.05 + 's'">
                             <td class="font-semibold text-primary-600">{{ policy.policyNumber }}</td>
                             <td>
@@ -198,7 +199,9 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr *ngIf="filteredPolicies.length === 0">
+                    }    
+                    @if(filteredPolicies.length === 0){
+                        <tr>
                             <td colspan="8" class="text-center py-12">
                                 <div class="flex flex-col items-center justify-center text-gray-500">
                                     <svg class="h-16 w-16 mb-4 text-gray-400" fill="none" stroke="currentColor"
@@ -212,6 +215,7 @@
                                 </div>
                             </td>
                         </tr>
+                    }    
                     </tbody>
                 </table>
             </div>
@@ -219,150 +223,152 @@
     </main>
 
     <!-- Add/Edit Modal -->
-    <div *ngIf="showAddModal || showEditModal"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scale-in">
-            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-gray-900">
-                    {{ showAddModal ? 'Add New Policy' : 'Edit Policy' }}
-                </h2>
-                <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-
-            <form (ngSubmit)="savePolicy()" class="p-6 space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Policy Number</label>
-                        <input type="text" [(ngModel)]="currentPolicy.policyNumber" name="policyNumber" required
-                            class="input-modern" placeholder="POL-2024-001">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Policy Type</label>
-                        <select [(ngModel)]="currentPolicy.type" name="type" required class="input-modern">
-                            <option value="">Select Type</option>
-                            <option value="Health">Health Insurance</option>
-                            <option value="Life">Life Insurance</option>
-                            <option value="Auto">Auto Insurance</option>
-                            <option value="Home">Home Insurance</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Coverage Amount</label>
-                        <input type="number" [(ngModel)]="currentPolicy.coverageAmount" name="coverageAmount" required
-                            class="input-modern" placeholder="50000">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Monthly Premium</label>
-                        <input type="number" [(ngModel)]="currentPolicy.premium" name="premium" required
-                            class="input-modern" placeholder="150">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Start Date</label>
-                        <input type="date" [(ngModel)]="currentPolicy.startDate" name="startDate" required
-                            class="input-modern">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">End Date</label>
-                        <input type="date" [(ngModel)]="currentPolicy.endDate" name="endDate" required
-                            class="input-modern">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
-                        <select [(ngModel)]="currentPolicy.status" name="status" required class="input-modern">
-                            <option value="Active">Active</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Expired">Expired</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex gap-3 pt-4">
-                    <button type="submit" class="btn-primary flex-1">
-                        {{ showAddModal ? 'Add Policy' : 'Update Policy' }}
-                    </button>
-                    <button type="button" (click)="closeModal()" class="btn-outline flex-1">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- View Modal -->
-    <div *ngIf="showViewModal && selectedPolicy"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
-        <div class="bg-white rounded-2xl max-w-2xl w-full animate-scale-in">
-            <div class="bg-gradient-to-r from-primary-600 to-primary-500 text-white px-6 py-4 rounded-t-2xl">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h2 class="text-2xl font-bold">Policy Details</h2>
-                        <p class="text-primary-100 text-sm">{{ selectedPolicy.policyNumber }}</p>
-                    </div>
-                    <button (click)="showViewModal = false" class="text-white hover:text-primary-100 transition-colors">
+    @if(showAddModal || showEditModal){
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
+            <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scale-in">
+                <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                        {{ showAddModal ? 'Add New Policy' : 'Edit Policy' }}
+                    </h2>
+                    <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                            </path>
                         </svg>
                     </button>
                 </div>
-            </div>
 
-            <div class="p-6 space-y-6">
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">Policy Type</p>
-                        <p class="text-lg font-semibold text-gray-900">{{ selectedPolicy.type }} Insurance</p>
+                <form (ngSubmit)="savePolicy()" class="p-6 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Policy Number</label>
+                            <input type="text" [(ngModel)]="currentPolicy.policyNumber" name="policyNumber" required
+                                class="input-modern" placeholder="POL-2024-001">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Policy Type</label>
+                            <select [(ngModel)]="currentPolicy.type" name="type" required class="input-modern">
+                                <option value="">Select Type</option>
+                                <option value="Health">Health Insurance</option>
+                                <option value="Life">Life Insurance</option>
+                                <option value="Auto">Auto Insurance</option>
+                                <option value="Home">Home Insurance</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Coverage Amount</label>
+                            <input type="number" [(ngModel)]="currentPolicy.coverageAmount" name="coverageAmount" required
+                                class="input-modern" placeholder="50000">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Monthly Premium</label>
+                            <input type="number" [(ngModel)]="currentPolicy.premium" name="premium" required
+                                class="input-modern" placeholder="150">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Start Date</label>
+                            <input type="date" [(ngModel)]="currentPolicy.startDate" name="startDate" required
+                                class="input-modern">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">End Date</label>
+                            <input type="date" [(ngModel)]="currentPolicy.endDate" name="endDate" required
+                                class="input-modern">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+                            <select [(ngModel)]="currentPolicy.status" name="status" required class="input-modern">
+                                <option value="Active">Active</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Expired">Expired</option>
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">Status</p>
-                        <span class="badge text-base" [ngClass]="{
-                    'badge-success': selectedPolicy.status === 'Active',
-                    'badge-warning': selectedPolicy.status === 'Pending',
-                    'badge-error': selectedPolicy.status === 'Expired'
-                  }">
-                            {{ selectedPolicy.status }}
-                        </span>
+
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" class="btn-primary flex-1">
+                            {{ showAddModal ? 'Add Policy' : 'Update Policy' }}
+                        </button>
+                        <button type="button" (click)="closeModal()" class="btn-outline flex-1">
+                            Cancel
+                        </button>
                     </div>
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">Coverage Amount</p>
-                        <p class="text-lg font-semibold text-gray-900">${{ selectedPolicy.coverageAmount | number }}</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">Monthly Premium</p>
-                        <p class="text-lg font-semibold text-gray-900">${{ selectedPolicy.premium }}</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">Start Date</p>
-                        <p class="text-lg font-semibold text-gray-900">{{ selectedPolicy.startDate | date:'MMM d, y' }}
-                        </p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">End Date</p>
-                        <p class="text-lg font-semibold text-gray-900">{{ selectedPolicy.endDate | date:'MMM d, y' }}
-                        </p>
+                </form>
+            </div>
+        </div>
+    }
+
+    <!-- View Modal -->
+    @if(showViewModal && selectedPolicy){
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
+            <div class="bg-white rounded-2xl max-w-2xl w-full animate-scale-in">
+                <div class="bg-gradient-to-r from-primary-600 to-primary-500 text-white px-6 py-4 rounded-t-2xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold">Policy Details</h2>
+                            <p class="text-primary-100 text-sm">{{ selectedPolicy.policyNumber }}</p>
+                        </div>
+                        <button (click)="showViewModal = false" class="text-white hover:text-primary-100 transition-colors">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
-                <div class="flex gap-3 pt-4">
-                    <button (click)="editPolicy(selectedPolicy); showViewModal = false" class="btn-primary flex-1">
-                        Edit Policy
-                    </button>
-                    <button (click)="showViewModal = false" class="btn-outline flex-1">
-                        Close
-                    </button>
+                <div class="p-6 space-y-6">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Policy Type</p>
+                            <p class="text-lg font-semibold text-gray-900">{{ selectedPolicy.type }} Insurance</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Status</p>
+                            <span class="badge text-base" [ngClass]="{
+                        'badge-success': selectedPolicy.status === 'Active',
+                        'badge-warning': selectedPolicy.status === 'Pending',
+                        'badge-error': selectedPolicy.status === 'Expired'
+                    }">
+                                {{ selectedPolicy.status }}
+                            </span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Coverage Amount</p>
+                            <p class="text-lg font-semibold text-gray-900">${{ selectedPolicy.coverageAmount | number }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Monthly Premium</p>
+                            <p class="text-lg font-semibold text-gray-900">${{ selectedPolicy.premium }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Start Date</p>
+                            <p class="text-lg font-semibold text-gray-900">{{ selectedPolicy.startDate | date:'MMM d, y' }}
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">End Date</p>
+                            <p class="text-lg font-semibold text-gray-900">{{ selectedPolicy.endDate | date:'MMM d, y' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 pt-4">
+                        <button (click)="editPolicy(selectedPolicy); showViewModal = false" class="btn-primary flex-1">
+                            Edit Policy
+                        </button>
+                        <button (click)="showViewModal = false" class="btn-outline flex-1">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>
