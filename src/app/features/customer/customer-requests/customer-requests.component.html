@@ -198,13 +198,19 @@
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     [class.text-white]="step.status === 'completed' || step.status === 'in_progress'"
                                     [class.text-gray-400]="step.status === 'pending'">
-                                    <path *ngIf="step.status === 'completed'" stroke-linecap="round"
+                                    @if(step.status === 'completed'){
+                                        <path stroke-linecap="round"
                                         stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    <path *ngIf="step.status === 'in_progress'" stroke-linecap="round"
+                                    }    
+                                    @if(step.status === 'in_progress'){
+                                        <path stroke-linecap="round"
                                         stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                    <path *ngIf="step.status === 'pending'" stroke-linecap="round"
+                                    }    
+                                    @if(step.status === 'pending'){
+                                        <path stroke-linecap="round"
                                         stroke-linejoin="round" stroke-width="2"
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    }    
                                 </svg>
                             </div>
 
