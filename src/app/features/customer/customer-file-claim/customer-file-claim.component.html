@@ -63,22 +63,21 @@
                             }
                         </div>
                     }
-                    </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
             <!-- Form Card -->
             <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 animate-scale-in">
                 <form (ngSubmit)="submitClaim()">
                     <!-- Step 1: Policy Selection -->
-                     @if(currentStep==0){
+                     @if (currentStep==0){
                         <div class="space-y-6 animate-fade-in">
                             <div>
                                 <h2 class="text-xl font-bold text-gray-900 mb-6">Select Policy</h2>
 
                                 <div class="grid gap-4">
-                                    @for(policy of policies;track policy.id;track file.name){
+                                    @for(policy of policies;track policy.id){
                                         <div (click)="selectPolicy(policy)"
                                             class="p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-medium"
                                             [ngClass]="{
@@ -115,7 +114,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @if(claimData.policyId === policy.id){
+                                                @if (claimData.policyId === policy.id){
                                                     <div class="h-6 w-6 rounded-full bg-primary-600 flex items-center justify-center">
                                                         <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
@@ -132,7 +131,7 @@
                         </div>
                     }    
                     <!-- Step 2: Claim Details -->
-                    @if(currentStep==1){
+                    @if (currentStep==1){
                         <div class="space-y-6 animate-fade-in">
                             <h2 class="text-xl font-bold text-gray-900 mb-6">Claim Details</h2>
 
@@ -173,7 +172,7 @@
                     }    
 
                     <!-- Step 3: Documents -->
-                    @if(currentStep==1){
+                    @if (currentStep==2){
                         <div class="space-y-6 animate-fade-in">
                             <h2 class="text-xl font-bold text-gray-900 mb-6">Upload Documents</h2>
 
@@ -190,10 +189,10 @@
                                 <input type="file" (change)="onFileSelected($event)" class="hidden" multiple
                                     accept=".pdf,.png,.jpg,.jpeg" #fileInput>
                             </div>
-                            @if(uploadedFiles.length > 0){
+                            @if (uploadedFiles.length > 0){
                                 <div class="space-y-3">
                                     <p class="text-sm font-semibold text-gray-700">Uploaded Files</p>
-                                    for(let file of uploadedFiles;track){
+                                    @for (file of uploadedFiles;track file.name){
                                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                                             <div class="flex items-center gap-3">
                                                 <div class="h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center">
@@ -217,13 +216,13 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                    }    
-                                }    
+                                    }       
                                 </div>
+                            } 
                         </div>        
                     } 
                     <!-- Step 4: Review -->
-                    @if(currentStep === 3){
+                    @if (currentStep === 3){
                         <div class="space-y-6 animate-fade-in">
                             <h2 class="text-xl font-bold text-gray-900 mb-6">Review & Submit</h2>
 
@@ -277,7 +276,7 @@
                     }        
                     <!-- Navigation Buttons -->
                     <div class="flex gap-4 mt-8 pt-6 border-t border-gray-200">
-                        @if(currentStep > 0){
+                        @if (currentStep > 0){
                             <button type="button" (click)="previousStep()"
                                 class="btn-outline flex-1">
                                 <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -287,7 +286,7 @@
                                 Previous
                             </button>
                         }    
-                        @if(currentStep < steps.length - 1){
+                        @if (currentStep < steps.length - 1){
                             <button type="button" (click)="nextStep()"
                                 class="btn-primary flex-1" [disabled]="!canProceed()">
                                 Next
@@ -298,13 +297,12 @@
                             </button>
                         }    
 
-                        @if(currentStep === steps.length - 1){
+                        @if (currentStep === steps.length - 1){
                             <button type="submit" class="btn-primary flex-1"
                                 [disabled]="submitting">
-                                @if(submitting){
+                                @if (submitting){
                                     <span class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></span>
-                                }
-                                @else{
+                                }@else{
                                     <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -317,11 +315,10 @@
                     </div>
                 </form>
             </div>
-        </div>
     </main>
 
     <!-- Success Modal -->
-    @if(showSuccessModal){
+    @if (showSuccessModal){
         <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
             <div class="bg-white rounded-2xl max-w-md w-full p-8 text-center animate-scale-in">
                 <div class="h-16 w-16 rounded-full bg-accent-100 flex items-center justify-center mx-auto mb-4">

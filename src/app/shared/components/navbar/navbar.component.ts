@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject,ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services';
 
@@ -101,6 +101,7 @@ export class NavbarComponent implements OnInit {
   @Input() userName: string = '';
   @Input() userRole: string = '';
 
+  protected cdr=inject(ChangeDetectorRef);
   currentUserName: string = '';
   currentUserRole: string = '';
   notifications: any[] = [];
@@ -137,6 +138,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.cdr.detectChanges();
     this.router.navigate(['/']);
   }
 }
