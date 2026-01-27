@@ -126,7 +126,7 @@ export class CustomerDashboardComponent implements OnInit, AfterViewInit {
 
         // Sort activities by time (most recent first)
         this.recentActivities.sort((a, b) => {
-          // Simple sort by description for now
+          // Simple sort by description 
           return 0;
         });
 
