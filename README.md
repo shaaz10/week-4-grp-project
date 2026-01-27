@@ -1,4 +1,4 @@
-# Hartford Insurance - Angular Application
+# Hartford Insurance - Angular Application-1
 
 A premium Angular insurance management application with elegant Asmara Wellness Spa-inspired design aesthetic.
 
