@@ -55,7 +55,6 @@ export class CustomerRecommendationsComponent implements OnInit {
     loadData() {
         this.loading = true;
 
-        // Load request details
         this.http.get<any>(`http://localhost:3000/insuranceRequests/${this.requestId}`)
             .subscribe({
                 next: (req) => {
@@ -74,7 +73,6 @@ export class CustomerRecommendationsComponent implements OnInit {
             .subscribe({
                 next: (recs) => {
                     if (recs && recs.length > 0) {
-                        // Take the latest recommendation if multiple exist
                         this.recommendation = recs[recs.length - 1];
                     }
                     this.loading = false;
@@ -98,7 +96,6 @@ export class CustomerRecommendationsComponent implements OnInit {
             });
         }
     }
-
     getCoverageAmount(amount: number): string {
         if (amount === -1) return 'Unlimited';
         return new Intl.NumberFormat('en-IN', {

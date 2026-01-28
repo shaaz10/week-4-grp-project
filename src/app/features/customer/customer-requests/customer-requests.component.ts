@@ -120,7 +120,6 @@ export class CustomerRequestsComponent implements OnInit {
     }
 
     updateWorkflowStatus(request: any) {
-        // Update workflow based on request status
         const statusMap: any = {
             'pending_agent_assignment': 1,
             'agent_assigned': 2,

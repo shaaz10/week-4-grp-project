@@ -80,6 +80,15 @@
       "createdAt": "2026-01-27T04:16:18.128Z",
       "updatedAt": "2026-01-27T04:16:18.128Z",
       "id": "YeMWJG_"
+    },
+    {
+      "email": "hemanth@gmail.com",
+      "name": "Hemanth Kumar Veeramachaneni",
+      "role": "customer",
+      "phone": "9020329840",
+      "createdAt": "2026-01-28T11:20:34.085Z",
+      "updatedAt": "2026-01-28T11:20:34.085Z",
+      "id": "5mtn9XD"
     }
   ],
   "insuranceRequests": [
@@ -270,14 +279,14 @@
       "customerId": "3",
       "customerName": "Sarah Customer",
       "insuranceType": "life",
-      "status": "agent_assigned",
+      "status": "under_admin_review",
       "agentId": "2",
       "agentName": "John Agent",
       "requestedCoverage": 25200000,
       "requestDate": "2026-01-27T04:09:41.082Z",
       "description": "Request for Term Life Insurance",
       "id": "1yt32n2",
-      "updatedAt": "2026-01-27T04:09:55.704Z"
+      "updatedAt": "2026-01-28T11:29:26.629Z"
     },
     {
       "requestNumber": "REQ-2026-1503",
@@ -332,6 +341,48 @@
       "description": "Request for Comprehensive Health Insurance",
       "id": "fQjvDG_",
       "updatedAt": "2026-01-27T07:00:22.549Z"
+    },
+    {
+      "requestNumber": "REQ-2026-241",
+      "customerId": "3",
+      "customerName": "Sarah Customer",
+      "insuranceType": "auto",
+      "status": "agent_assigned",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "requestedCoverage": 500000,
+      "requestDate": "2026-01-28T10:05:01.740Z",
+      "description": "Request for Comprehensive Car Insurance",
+      "id": "zABSyzi",
+      "updatedAt": "2026-01-28T10:05:21.314Z"
+    },
+    {
+      "requestNumber": "REQ-2026-5330",
+      "customerId": "5mtn9XD",
+      "customerName": "Hemanth Kumar Veeramachaneni",
+      "insuranceType": "life",
+      "status": "recommendations_sent",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "requestedCoverage": 25200000,
+      "requestDate": "2026-01-28T11:20:45.530Z",
+      "description": "Request for Term Life Insurance",
+      "id": "ib0FUPP",
+      "updatedAt": "2026-01-28T11:21:38.608Z"
+    },
+    {
+      "requestNumber": "REQ-2026-8532",
+      "customerId": "5mtn9XD",
+      "customerName": "Hemanth Kumar Veeramachaneni",
+      "insuranceType": "health",
+      "status": "active",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "requestedCoverage": 3100000,
+      "requestDate": "2026-01-28T11:22:06.295Z",
+      "description": "Request for Comprehensive Health Insurance",
+      "id": "d2cMDfQ",
+      "updatedAt": "2026-01-28T11:31:18.097Z"
     }
   ],
   "policyRecommendations": [
@@ -711,6 +762,144 @@
       "notes": "Based on your requirements, I have prepared the following policy recommendations.",
       "createdAt": "2026-01-27T06:59:34.460Z",
       "id": 8
+    },
+    {
+      "requestId": "1yt32n2",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "packages": [
+        {
+          "name": "Term Life Basic",
+          "coverage": 2500000,
+          "premium": 500,
+          "features": [
+            "Pure Life Cover",
+            "Tax Benefits",
+            "30 Year Term"
+          ],
+          "recommended": false
+        },
+        {
+          "name": "Term Life Plus",
+          "coverage": 5000000,
+          "premium": 800,
+          "features": [
+            "Life Cover",
+            "Accidental Death Benefit",
+            "Tax Benefits",
+            "30 Year Term"
+          ],
+          "recommended": true
+        },
+        {
+          "name": "Whole Life Plan",
+          "coverage": 10000000,
+          "premium": 1500,
+          "features": [
+            "Lifetime Cover",
+            "Maturity Benefit",
+            "Accidental Death",
+            "Tax Benefits"
+          ],
+          "recommended": false
+        }
+      ],
+      "notes": "Based on your requirements, I have prepared the following policy recommendations.",
+      "createdAt": "2026-01-28T10:00:15.287Z",
+      "id": 9
+    },
+    {
+      "requestId": "ib0FUPP",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "packages": [
+        {
+          "name": "Term Life Basic",
+          "coverage": 2500000,
+          "premium": 500,
+          "features": [
+            "Pure Life Cover",
+            "Tax Benefits",
+            "30 Year Term"
+          ],
+          "recommended": false
+        },
+        {
+          "name": "Term Life Plus",
+          "coverage": 5000000,
+          "premium": 800,
+          "features": [
+            "Life Cover",
+            "Accidental Death Benefit",
+            "Tax Benefits",
+            "30 Year Term"
+          ],
+          "recommended": true
+        },
+        {
+          "name": "Whole Life Plan",
+          "coverage": 10000000,
+          "premium": 1500,
+          "features": [
+            "Lifetime Cover",
+            "Maturity Benefit",
+            "Accidental Death",
+            "Tax Benefits"
+          ],
+          "recommended": false
+        }
+      ],
+      "notes": "Based on your requirements, I have prepared the following policy recommendations.",
+      "createdAt": "2026-01-28T11:21:38.575Z",
+      "id": 10
+    },
+    {
+      "requestId": "d2cMDfQ",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "packages": [
+        {
+          "name": "Basic Health Plan",
+          "coverage": 300000,
+          "premium": 800,
+          "features": [
+            "OPD Coverage",
+            "Hospitalization",
+            "Pre-existing after 2 years"
+          ],
+          "recommended": false
+        },
+        {
+          "name": "Premium Health Plan",
+          "coverage": 500000,
+          "premium": 1200,
+          "features": [
+            "OPD Coverage",
+            "Hospitalization",
+            "Pre-existing covered",
+            "Maternity",
+            "Day Care"
+          ],
+          "recommended": true
+        },
+        {
+          "name": "Family Floater Plan",
+          "coverage": 1000000,
+          "premium": 2000,
+          "features": [
+            "Family Coverage",
+            "OPD",
+            "Hospitalization",
+            "Pre-existing",
+            "Maternity",
+            "Critical Illness"
+          ],
+          "recommended": false
+        }
+      ],
+      "notes": "Based on your requirements, I have prepared the following policy recommendations.",
+      "createdAt": "2026-01-28T11:23:08.635Z",
+      "id": 11
     }
   ],
   "policyApplications": [
@@ -871,6 +1060,50 @@
       "agentVerifiedAt": "2026-01-27T07:00:22.530Z",
       "adminNotes": "102",
       "approvedDate": "2026-01-27T07:00:38.076Z"
+    },
+    {
+      "applicationNumber": "APP-2026-1637",
+      "requestId": "1yt32n2",
+      "customerId": "3",
+      "customerName": "Sarah Customer",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "insuranceType": "life",
+      "packageName": "Term Life Plus",
+      "premium": 800,
+      "coverageAmount": 5000000,
+      "status": "submitted_to_admin",
+      "documents": [
+        "RoutingRefDoc.pdf"
+      ],
+      "submittedDate": "2026-01-28T10:04:22.334Z",
+      "updatedAt": "2026-01-28T11:29:26.595Z",
+      "id": "5i4r_eu",
+      "agentNotes": "",
+      "agentVerifiedAt": "2026-01-28T11:29:26.595Z"
+    },
+    {
+      "applicationNumber": "APP-2026-1038",
+      "requestId": "d2cMDfQ",
+      "customerId": "5mtn9XD",
+      "customerName": "Hemanth Kumar Veeramachaneni",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "insuranceType": "health",
+      "packageName": "Premium Health Plan",
+      "premium": 1200,
+      "coverageAmount": 500000,
+      "status": "approved",
+      "documents": [
+        "RoutingRefDoc.pdf"
+      ],
+      "submittedDate": "2026-01-28T11:23:33.036Z",
+      "updatedAt": "2026-01-28T11:28:42.477Z",
+      "id": "hCgiuxt",
+      "agentNotes": "",
+      "agentVerifiedAt": "2026-01-28T11:28:42.476Z",
+      "adminNotes": "",
+      "approvedDate": "2026-01-28T11:31:18.081Z"
     }
   ],
   "policies": [
@@ -1006,6 +1239,25 @@
       "createdAt": "2026-01-27T07:00:38.055Z",
       "updatedAt": "2026-01-27T07:00:38.055Z",
       "id": "S_o8_B2"
+    },
+    {
+      "policyNumber": "POL-2026-9519",
+      "applicationId": "hCgiuxt",
+      "type": "health",
+      "status": "active",
+      "customerId": "5mtn9XD",
+      "customerName": "Hemanth Kumar Veeramachaneni",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "premium": 1200,
+      "coverageAmount": 500000,
+      "startDate": "2026-01-28",
+      "endDate": "2027-01-28",
+      "approvedBy": "1",
+      "approvedDate": "2026-01-28T11:31:18.063Z",
+      "createdAt": "2026-01-28T11:31:18.063Z",
+      "updatedAt": "2026-01-28T11:31:18.063Z",
+      "id": "qgGSaJO"
     }
   ],
   "claims": [
@@ -1297,6 +1549,42 @@
       "read": false,
       "createdAt": "2026-01-27T07:00:38.087Z",
       "id": 10
+    },
+    {
+      "userId": "3",
+      "title": "New Recommendations Ready",
+      "message": "Your agent John Agent has prepared policy recommendations for your life insurance request.",
+      "type": "info",
+      "read": false,
+      "createdAt": "2026-01-28T10:00:15.360Z",
+      "id": 11
+    },
+    {
+      "userId": "5mtn9XD",
+      "title": "New Recommendations Ready",
+      "message": "Your agent John Agent has prepared policy recommendations for your life insurance request.",
+      "type": "info",
+      "read": false,
+      "createdAt": "2026-01-28T11:21:38.640Z",
+      "id": 12
+    },
+    {
+      "userId": "5mtn9XD",
+      "title": "New Recommendations Ready",
+      "message": "Your agent John Agent has prepared policy recommendations for your health insurance request.",
+      "type": "info",
+      "read": false,
+      "createdAt": "2026-01-28T11:23:08.697Z",
+      "id": 13
+    },
+    {
+      "userId": "5mtn9XD",
+      "title": "Policy Approved & Active",
+      "message": "Congratulations! Your health insurance policy (POL-2026-9519) has been approved and is now active.",
+      "type": "success",
+      "read": false,
+      "createdAt": "2026-01-28T11:31:18.097Z",
+      "id": 14
     }
   ]
 }

@@ -78,7 +78,7 @@ export class CustomerDashboardComponent implements OnInit, AfterViewInit {
           this.recentActivities.push({
             icon: '📄',
             title: 'Policy Active',
-            description: `${policy.policyType} - ${policy.policyNumber}`,
+            description: `${policy.type} - ${policy.policyNumber}`,
             time: this.getTimeAgo(policy.startDate),
             color: 'bg-green-100 text-green-600'
           });
@@ -126,7 +126,7 @@ export class CustomerDashboardComponent implements OnInit, AfterViewInit {
 
         // Sort activities by time (most recent first)
         this.recentActivities.sort((a, b) => {
-          // Simple sort by description for now
+          // Simple sort by description 
           return 0;
         });
 
@@ -146,7 +146,6 @@ export class CustomerDashboardComponent implements OnInit, AfterViewInit {
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMs / 3600000);
     const diffDays = Math.floor(diffMs / 86400000);
-
     if (diffMins < 60) return `${diffMins} minutes ago`;
     if (diffHours < 24) return `${diffHours} hours ago`;
     if (diffDays < 7) return `${diffDays} days ago`;
@@ -221,84 +220,123 @@ export class CustomerDashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  createCoverageChart() {
-    const ctx = document.getElementById('coverageChart') as HTMLCanvasElement;
-    if (!ctx) return;
+ createCoverageChart() {
+  const ctx = document.getElementById('coverageChart') as HTMLCanvasElement;
+  if (!ctx) return;
 
-    // Calculate coverage by type from actual policies
-    const coverageByType: any = {};
-    this.policies.forEach(policy => {
-      const type = policy.policyType || 'Other';
-      coverageByType[type] = (coverageByType[type] || 0) + (policy.coverageAmount || 0);
-    });
+  const coverageByType: Record<string, number> = {};
 
-    const labels = Object.keys(coverageByType);
-    const data = Object.values(coverageByType);
+  this.policies.forEach(policy => {
+    // 1️⃣ Read type safely
+    let rawType =
+      policy.type ||
+      policy.insuranceType ||
+      'others';
 
-    // If no policies, show empty state
-    if (labels.length === 0) {
-      labels.push('No Coverage');
-      data.push(0);
-    }
+    // 2️⃣ Normalize
+    rawType = rawType.toString().toLowerCase().trim();
 
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data as number[],
-          backgroundColor: [
-            '#10b981',
-            '#3b82f6',
-            '#8b5cf6',
-            '#f59e0b',
-            '#ef4444'
-          ],
-          borderWidth: 0,
-          hoverOffset: 10
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              padding: 15,
-              usePointStyle: true,
-              font: {
-                size: 12
-              }
-            }
-          },
-          tooltip: {
-            backgroundColor: '#1f2937',
-            padding: 12,
-            titleColor: '#fff',
-            bodyColor: '#fff',
-            borderColor: '#374151',
-            borderWidth: 1,
-            callbacks: {
-              label: (context) => {
-                const label = context.label || '';
-                const value = context.parsed;
-                return value > 0 ? `${label}: ₹${value.toLocaleString()}` : 'No coverage yet';
-              }
-            }
-          }
-        },
-        cutout: '70%'
-      }
-    });
+    // 3️⃣ Force single label per type
+    let typeLabel = 'Others';
+
+    if (rawType === 'auto' || rawType === 'car') typeLabel = 'Auto';
+    else if (rawType === 'health') typeLabel = 'Health';
+    else if (rawType === 'life') typeLabel = 'Life';
+    else if (rawType === 'home') typeLabel = 'Home';
+
+    // 4️⃣ Aggregate
+    coverageByType[typeLabel] =
+      (coverageByType[typeLabel] || 0) + (policy.coverageAmount || 0);
+  });
+
+  // Empty state safety
+  if (Object.keys(coverageByType).length === 0) {
+    coverageByType['No Coverage'] = 1;
   }
 
-  payPremium() {
-    if (confirm(`Confirming payment of ₹${this.stats.nextPayment.toLocaleString()}...`)) {
-      // Mock payment success
-      alert('Payment successful! Thank you for choosing The Hartford.');
-      this.stats.nextPayment = 0;
-      // In a real app, we would update the backend payment records
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(coverageByType),
+      datasets: [{
+        data: Object.values(coverageByType),
+        backgroundColor: [
+          '#10b981', 
+          '#f59e0b', 
+          '#3b82f6', 
+          '#8b5cf6', 
+          '#9ca3af'  
+        ],
+        borderWidth: 0,
+        hoverOffset: 12
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '70%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            usePointStyle: true,
+            padding: 15
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx =>
+              `${ctx.label}: ₹${(ctx.parsed as number).toLocaleString()}`
+          }
+        }
+      }
     }
+  });
+}
+
+showPaymentModal = false;
+upiId = 'NgNinjas-demo@upi';
+activePaymentRequestId: string | null = null;
+
+openPaymentModal(requestId?: string) {
+  this.activePaymentRequestId = requestId || null;
+  this.showPaymentModal = true;
+}
+
+closePaymentModal() {
+  this.showPaymentModal = false;
+}
+
+confirmPayment() {
+  // Close modal
+  this.showPaymentModal = false;
+
+  // Update all pending payment requests
+  this.requests
+    .filter(r => r.status === 'payment_pending')
+    .forEach(r => {
+      r.status = 'payment_completed';
+
+      // Backend update (JSON Server / API)
+      this.http.patch(
+        `http://localhost:3000/insuranceRequests/${r.id}`,
+        { status: 'payment_completed' }
+      ).subscribe();
+    });
+
+    // Reset dashboard payments
+    this.stats.nextPayment = 0;
+
+    // Add activity log
+    this.recentActivities.unshift({
+      icon: '💳',
+      title: 'Premium Payment Successful',
+      description: 'Your premium payment has been received.',
+      time: 'Just now',
+      color: 'bg-green-100 text-green-600'
+    });
+
+    // Keep only latest 5 activities
+    this.recentActivities = this.recentActivities.slice(0, 5);
   }
 }

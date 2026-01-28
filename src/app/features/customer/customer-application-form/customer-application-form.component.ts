@@ -10,93 +10,7 @@ import { NavbarComponent } from '../../../shared/components/navbar/navbar.compon
     selector: 'app-customer-application-form',
     standalone: true,
     imports: [CommonModule, NavbarComponent, RouterLink, FormsModule],
-    template: `
-    <div class="min-h-screen bg-gray-50">
-        <app-navbar></app-navbar>
-
-        <main class="container mx-auto px-4 py-12 max-w-4xl">
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden animate-fade-in">
-                <div class="bg-gradient-to-r from-primary-600 to-blue-600 px-8 py-10 text-white">
-                    <h1 class="text-3xl font-bold mb-2">Complete Your Application</h1>
-                    <p class="text-primary-100 opacity-90">Please provide the required documents to activate your policy.</p>
-                </div>
-
-                <div class="p-8">
-                    <!-- Progress Stats -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 pb-10 border-b border-gray-100">
-                        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
-                            <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-1">Selected Plan</p>
-                            <p class="text-lg font-bold text-blue-900">{{ packageName }}</p>
-                        </div>
-                        <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
-                            <p class="text-xs text-purple-600 font-bold uppercase tracking-wider mb-1">Annual Premium</p>
-                            <p class="text-lg font-bold text-purple-900">₹{{ premium | number }}</p>
-                        </div>
-                        <div class="bg-amber-50 rounded-xl p-4 border border-amber-100">
-                            <p class="text-xs text-amber-600 font-bold uppercase tracking-wider mb-1">Coverage</p>
-                            <p class="text-lg font-bold text-amber-900">₹{{ coverage | number }}</p>
-                        </div>
-                    </div>
-
-                    <form #appForm="ngForm" (ngSubmit)="submitApplication()" class="space-y-8">
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-100 text-primary-600 text-sm">1</span>
-                                Personal Confirmation
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name (Legal)</label>
-                                    <input type="text" [(ngModel)]="fullName" name="fullName" required class="input-modern" placeholder="Enter your full name">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Contact Number</label>
-                                    <input type="tel" [(ngModel)]="phone" name="phone" required class="input-modern" placeholder="+91 00000 00000">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-100 text-primary-600 text-sm">2</span>
-                                KYC Document Upload
-                            </h3>
-                            <div class="bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-primary-300 transition-colors group cursor-pointer">
-                                <input type="file" #fileInput (change)="onFileSelected($event)" class="hidden">
-                                <div (click)="fileInput.click()" class="flex flex-col items-center">
-                                    <div class="w-16 h-16 rounded-full bg-primary-50 text-primary-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    </div>
-                                    <p class="text-gray-900 font-bold mb-1">Click to upload document</p>
-                                    <p class="text-sm text-gray-500 mb-4">Aadhar Card, PAN, or Passport (PDF/JPG)</p>
-                                    @if (selectedFileName) {
-                                        <div class="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium flex items-center gap-2">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                            {{ selectedFileName }}
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pt-6">
-                            <button type="submit" [disabled]="!appForm.form.valid || !selectedFileName || submitting"
-                                class="w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                                @if (submitting) {
-                                    <svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                    Processing...
-                                } @else {
-                                    Submit Application
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                }
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </main>
-    </div>
-    `
+    templateUrl:'./customer-application-form.component.html'
 })
 export class CustomerApplicationFormComponent implements OnInit {
     private route = inject(ActivatedRoute);
@@ -146,7 +60,7 @@ export class CustomerApplicationFormComponent implements OnInit {
 
         this.submitting = true;
 
-        // 1. Load the request to get agent details
+        //1. Load the request to get agent details
         this.http.get<any>(`http://localhost:3000/insuranceRequests/${this.requestId}`)
             .subscribe(request => {
 
@@ -167,15 +81,15 @@ export class CustomerApplicationFormComponent implements OnInit {
                     updatedAt: new Date().toISOString()
                 };
 
-                // 2. Post the application
+                //2. Post the applications
                 this.http.post('http://localhost:3000/policyApplications', application)
                     .subscribe(() => {
-                        // 3. Update the request status
+                        //3. Update the request status
                         this.http.patch(`http://localhost:3000/insuranceRequests/${this.requestId}`, {
                             status: 'application_in_progress',
                             updatedAt: new Date().toISOString()
                         }).subscribe(() => {
-                            // 4. Create a notification for the agent if we had a proper notification logic
+                            //4. Create a notification for the agent if we had a proper notification logic
                             // For now just finish
                             this.submitting = false;
                             alert('Application submitted successfully! Your agent will review it shortly.');

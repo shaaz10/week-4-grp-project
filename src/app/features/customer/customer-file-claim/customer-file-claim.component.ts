@@ -47,7 +47,7 @@ export class CustomerFileClaimComponent implements OnInit {
         }
     }
 
-    selectPolicy(policy: any) {
+    selectPolicy(policy: any){
         this.claimData.policyId = policy.id;
     }
 
@@ -150,6 +150,5 @@ export class CustomerFileClaimComponent implements OnInit {
             read: false,
             createdAt: new Date().toISOString()
         };
-        // We use fetch or inject HttpClient if needed. Since I am in component, I'll just use inject.
     }
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject,ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService, ThemeService } from '../../../core/services';
 
@@ -124,6 +124,7 @@ export class NavbarComponent implements OnInit {
   notifications: any[] = [];
   unreadCount: number = 0;
 
+  protected cdr=inject(ChangeDetectorRef)
   private http = inject(HttpClient);
   public themeService = inject(ThemeService);
 
@@ -156,6 +157,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.cdr.detectChanges();
     this.router.navigate(['/']);
   }
 }

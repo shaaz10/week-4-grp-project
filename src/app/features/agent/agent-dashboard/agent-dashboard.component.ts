@@ -11,7 +11,7 @@ import { NavbarComponent } from '../../../shared/components/navbar/navbar.compon
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, NavbarComponent],
   template: `
-      <div class="min-h-screen bg-gray-50">
+      <div class="min-h-screen bg-gray-50 text-black">
         <app-navbar [userRole]="'agent'"></app-navbar>
   
         <main class="px-4 sm:px-6 lg:px-8 py-8">
