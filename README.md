@@ -179,8 +179,6 @@ This is a demo project for educational purposes.
 
 ## 🙏 Credits
 
-- Design inspiration: Asmara Wellness Spa
-- Insurance branding: Hartford Insurance Group
 - UI Framework: Angular 18 (with v21 patterns)
 - Styling: Tailwind CSS
 - Icons: Heroicons (via inline SVG)
