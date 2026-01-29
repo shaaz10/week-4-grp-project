@@ -361,14 +361,14 @@
       "customerId": "5mtn9XD",
       "customerName": "Hemanth Kumar Veeramachaneni",
       "insuranceType": "life",
-      "status": "recommendations_sent",
+      "status": "application_in_progress",
       "agentId": "2",
       "agentName": "John Agent",
       "requestedCoverage": 25200000,
       "requestDate": "2026-01-28T11:20:45.530Z",
       "description": "Request for Term Life Insurance",
       "id": "ib0FUPP",
-      "updatedAt": "2026-01-28T11:21:38.608Z"
+      "updatedAt": "2026-01-28T17:40:21.161Z"
     },
     {
       "requestNumber": "REQ-2026-8532",
@@ -383,6 +383,20 @@
       "description": "Request for Comprehensive Health Insurance",
       "id": "d2cMDfQ",
       "updatedAt": "2026-01-28T11:31:18.097Z"
+    },
+    {
+      "requestNumber": "REQ-2026-4057",
+      "customerId": "5mtn9XD",
+      "customerName": "Hemanth Kumar Veeramachaneni",
+      "insuranceType": "auto",
+      "status": "recommendations_sent",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "requestedCoverage": 500000,
+      "requestDate": "2026-01-28T17:39:16.858Z",
+      "description": "Request for Comprehensive Car Insurance",
+      "id": "7mpcilk",
+      "updatedAt": "2026-01-28T17:41:10.229Z"
     }
   ],
   "policyRecommendations": [
@@ -900,6 +914,61 @@
       "notes": "Based on your requirements, I have prepared the following policy recommendations.",
       "createdAt": "2026-01-28T11:23:08.635Z",
       "id": 11
+    },
+    {
+      "requestId": "7mpcilk",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "packages": [
+        {
+          "name": "Third Party Only",
+          "coverage": 0,
+          "premium": 500,
+          "features": [
+            "Third Party Liability",
+            "Legal Cover"
+          ],
+          "recommended": false
+        },
+        {
+          "name": "Comprehensive",
+          "coverage": 500000,
+          "premium": 1200,
+          "features": [
+            "Own Damage",
+            "Third Party",
+            "Zero Depreciation",
+            "Roadside Assistance"
+          ],
+          "recommended": true
+        },
+        {
+          "name": "Premium Comprehensive",
+          "coverage": 1000000,
+          "premium": 1800,
+          "features": [
+            "Own Damage",
+            "Third Party",
+            "Zero Depreciation",
+            "Engine Protection",
+            "NCB Protection",
+            "Roadside Assistance"
+          ],
+          "recommended": false
+        },
+        {
+          "name": "",
+          "coverage": 0,
+          "premium": 0,
+          "features": [
+            ""
+          ],
+          "recommended": false
+        }
+      ],
+      "notes": "Based on your requirements, I have prepared the following policy recommendations.",
+      "createdAt": "2026-01-28T17:41:10.208Z",
+      "id": 12
     }
   ],
   "policyApplications": [
@@ -1104,6 +1173,25 @@
       "agentVerifiedAt": "2026-01-28T11:28:42.476Z",
       "adminNotes": "",
       "approvedDate": "2026-01-28T11:31:18.081Z"
+    },
+    {
+      "applicationNumber": "APP-2026-8682",
+      "requestId": "ib0FUPP",
+      "customerId": "5mtn9XD",
+      "customerName": "Hemanth Kumar Veeramachaneni",
+      "agentId": "2",
+      "agentName": "John Agent",
+      "insuranceType": "life",
+      "packageName": "Term Life Plus",
+      "premium": 800,
+      "coverageAmount": 5000000,
+      "status": "submitted_to_agent",
+      "documents": [
+        "AngularAuthBasicsRef.pdf"
+      ],
+      "submittedDate": "2026-01-28T17:40:21.129Z",
+      "updatedAt": "2026-01-28T17:40:21.129Z",
+      "id": "E6_9QpD"
     }
   ],
   "policies": [
@@ -1585,6 +1673,15 @@
       "read": false,
       "createdAt": "2026-01-28T11:31:18.097Z",
       "id": 14
+    },
+    {
+      "userId": "5mtn9XD",
+      "title": "New Recommendations Ready",
+      "message": "Your agent John Agent has prepared policy recommendations for your auto insurance request.",
+      "type": "info",
+      "read": false,
+      "createdAt": "2026-01-28T17:41:10.258Z",
+      "id": 15
     }
   ]
 }

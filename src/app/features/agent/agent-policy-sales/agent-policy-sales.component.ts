@@ -6,6 +6,6 @@ import { RouterLink } from '@angular/router';
     selector: 'app-agent-policy-sales',
     standalone: true,
     imports: [CommonModule, RouterLink],
-    template: `<div class="min-h-screen bg-stone-900 p-6"><a routerLink="/agent" class="text-gold">← Back</a><h1 class="text-3xl font-display text-white mt-4">Policy Sales</h1></div>`
+    templateUrl: './agent-policy-sales.component.html'
 })
 export class AgentPolicySalesComponent { }
